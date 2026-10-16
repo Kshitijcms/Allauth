@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}Login | Auth Portal{% endblock %}
+
+{% block content %}
+<div class="flex min-h-screen items-center justify-center px-4 py-10">
+    <div class="card w-full max-w-md bg-base-100 shadow-xl">
+        <div class="card-body gap-5">
+            <div class="text-center">
+                <div class="avatar placeholder mb-4">
+                    <div class="w-16 rounded-2xl bg-primary text-primary-content">
+                        <span class="text-2xl font-bold">A</span>
+                    </div>
+                </div>
+                <h1 class="text-3xl font-bold">Welcome back</h1>
+                <p class="mt-2 text-sm text-base-content/60">
+                    Sign in to continue to your account
+                </p>
+            </div>
+            {% comment %} {% if form.non_field_errors %}
+                <div class="alert alert-error" role="alert">
+                    {% for error in form.non_field_errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %} {% endcomment %}
+            
+
+            <form method="post" action="{% url 'account_login' %}"
+                  class="space-y-4">
+                {% csrf_token %}
+
+                {% for field in form %}
+                    <div class="form-control">
+                        <label class="label" for="{{ field.id_for_label }}">
+                            <span class="label-text font-medium">
+                                {{ field.label }}
+                            </span>
+                        </label>
+
+                        {{ field }}
+
+                        {% for error in field.errors %}
+                            <p class="mt-1 text-sm text-error">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+
+                <div class="flex justify-end">
+                    <a href="{% url 'account_reset_password' %}"
+                       class="link link-primary text-sm">
+                        Forgot password?
+                    </a>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full">
+                    Sign in
+                </button>
+            </form>
+
+            <div class="divider text-xs">NEW HERE?</div>
+
+            <p class="text-center text-sm">
+                Don't have an account?
+                <a href="{% url 'account_signup' %}"
+                   class="link link-primary font-semibold">
+                    Create account
+                </a>
+            </p>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

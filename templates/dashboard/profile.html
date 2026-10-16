@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile | Auth Portal{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-base-200">
+
+    <div class="navbar bg-base-100 px-6 shadow-sm">
+        <div class="flex-1">
+            <a href="{% url 'dashboard:home' %}"
+               class="text-xl font-bold text-primary">
+                Auth Portal
+            </a>
+        </div>
+
+        <div class="flex-none">
+            <a href="{% url 'dashboard:home' %}"
+               class="btn btn-ghost btn-sm">
+                Dashboard
+            </a>
+        </div>
+    </div>
+
+    <main class="mx-auto max-w-3xl p-6 md:p-10">
+
+        <div class="mb-6">
+            <h1 class="text-3xl font-bold">My Profile</h1>
+            <p class="mt-2 text-base-content/60">
+                View your account information.
+            </p>
+        </div>
+
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+
+                <div class="flex items-center gap-4 border-b border-base-300 pb-6">
+                    <div class="avatar placeholder">
+                        <div class="w-16 rounded-2xl bg-primary text-primary-content">
+                            <span class="text-2xl font-bold">
+                                {{ request.user.username|first|upper }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2 class="text-xl font-bold">
+                            {{ request.user.username }}
+                        </h2>
+                        <p class="text-sm text-base-content/60">
+                            Registered User
+                        </p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 pt-4">
+
+                    <div>
+                        <p class="text-sm text-base-content/60">Username</p>
+                        <p class="mt-1 font-semibold">
+                            {{ request.user.username }}
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="text-sm text-base-content/60">Email Address</p>
+                        <p class="mt-1 font-semibold">
+                            {{ request.user.email|default:"Not provided" }}
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="text-sm text-base-content/60">Account Status</p>
+                        <div class="mt-1">
+                            <span class="badge badge-success">Active</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mt-6 flex flex-wrap gap-3">
+                    <a href="{% url 'account_change_password' %}"
+                       class="btn btn-primary">
+                        Change Password
+                    </a>
+
+                    <a href="{% url 'dashboard:home' %}"
+                       class="btn btn-outline">
+                        Back to Dashboard
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+</div>
+{% endblock %}

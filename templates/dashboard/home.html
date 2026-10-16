@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Auth Portal{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-base-200">
+
+    <div class="navbar bg-base-100 shadow-sm px-6">
+        <div class="flex-1">
+            <a class="text-xl font-bold text-primary">
+                Auth Portal
+            </a>
+        </div>
+
+        <div class="flex-none flex items-center gap-2">
+
+    <div class="dropdown dropdown-end">
+        <button tabindex="0" class="btn btn-ghost gap-2">
+            <div class="avatar placeholder">
+                <div class="w-9 rounded-xl bg-primary text-primary-content">
+                    <span class="font-bold">
+                        {{ request.user.username|first|upper }}
+                    </span>
+                </div>
+            </div>
+
+            <span>{{ request.user.username }}</span>
+            <span>⌄</span>
+        </button>
+
+        <ul tabindex="0"
+            class="menu dropdown-content z-10 mt-3 w-56 rounded-box bg-base-100 p-2 shadow-xl">
+
+            <li class="menu-title">
+                <span>My Account</span>
+            </li>
+
+            <li>
+                <a href="{% url 'dashboard:profile' %}">
+                    <span>👤</span> My Profile
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'account_change_password' %}">
+                    <span>🔐</span> Change Password
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'account_reset_password' %}">
+                    <span>✉️</span> Forgot Password
+                </a>
+            </li>
+
+            <li>
+                <form method="post" action="{% url 'account_logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="text-error">
+                        <span>↪</span> Logout
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
+
+</div>
+    </div>
+
+    <main class="mx-auto max-w-7xl p-6 md:p-10">
+        <h1 class="text-3xl font-bold">
+            Dashboard
+        </h1>
+
+        <p class="mt-2 text-base-content/60">
+            You have successfully logged in.
+        </p>
+
+        <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+            <div class="card bg-base-100 shadow">
+                <div class="card-body">
+                    <h2 class="card-title">My Profile</h2>
+                    <p>View your account information.</p>
+                </div>
+            </div>
+
+            <div class="card bg-base-100 shadow">
+                <div class="card-body">
+                    <h2 class="card-title">Security</h2>
+                    <p>Your account access is protected.</p>
+                </div>
+            </div>
+
+            <div class="card bg-base-100 shadow">
+                <div class="card-body">
+                    <h2 class="card-title">Account Status</h2>
+                    <p class="text-success font-semibold">
+                        Authenticated
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
